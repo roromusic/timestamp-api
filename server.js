@@ -56,11 +56,13 @@ app.get('/:time', function(req, res) {
   }else {
     let results = new chrono.parse(req.params.time);
     
-    if(results[0] == undefined) {
+    if(results[0] !== undefined) {
       let date = results[0].start.date();
       let reg = /(?:\w+)\s(\w+)\s(\w+)\s(\w+)/;
       let newstr = reg.exec(date.toString());
       res.json({"unix": date.getTime() / 1000, "natural": newstr[1] + " " + newstr[2] + ", " + newstr[3]})
+    }else {
+      res.json({"unix": null, "natural": null});
     }
   }
   
