@@ -44,11 +44,14 @@ app.get('/:time', function(req, res) {
   var isNumbers = /^[0-9]+/.test(req.params.time);
   
   if (isNumbers) {
+    var results = chrono.parse(req.params.time);
+    //var date = results[0].start.date().toString();
+    res.send(results);
+    //res.json({"unix": req.params.time, "natural": date})
+  }else {
     
   }
-  var results = chrono.parse(req.params.time);
-  var date = results[0].start.date().toString();
-  res.send(date);
+  
 })
 
 // Respond not found to all the wrong routes
