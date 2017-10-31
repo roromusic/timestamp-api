@@ -54,9 +54,14 @@ app.get('/:time', function(req, res) {
   if (isNumbers) {
     res.json({"unix": Number(req.params.time), "natural": unixConverter(req.params.time)})
   }else {
-    var results = new chrono.parse(req.params.time);
-    var date = results[0].start.date();
-    res.json({"unix": date.getTime() / 1000, "natural": date.toString()})
+    let results = new chrono.parse(req.params.time);
+    
+    if(results[0] == undefined) {
+      let date = results[0].start.date();
+      let reg = /(?:\w+)\s(\w+)\s(\w+)\s(\w+)/;
+      let newstr = reg.exec(date.toString());
+      res.json({"unix": date.getTime() / 1000, "natural": newstr[1] + " " + newstr[2] + ", " + newstr[3]})
+    }
   }
   
 })
