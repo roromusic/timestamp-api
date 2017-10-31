@@ -40,7 +40,6 @@ app.route('/')
     })
 
 app.get('/:time', function(req, res) {
-  var unix, natural;
   var isNumbers = /^[0-9]+/.test(req.params.time);
   function unixConverter(UNIX_timestamp){
     var a = new Date(UNIX_timestamp * 1000);
@@ -53,12 +52,11 @@ app.get('/:time', function(req, res) {
   }
   
   if (isNumbers) {
-    //var results = chrono.parse(req.params.time);
-    //var date = results[0].start.date().toString();
-    //res.send(results);
-    res.json({"unix": req.params.time, "natural": unixConverter(req.params.time)})
+    res.json({"unix": Number(req.params.time), "natural": unixConverter(req.params.time)})
   }else {
-    
+    var results = new chrono.parse(req.params.time);
+    var date = results[0].start.date();
+    res.send(results);
   }
   
 })
