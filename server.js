@@ -56,7 +56,7 @@ app.get('/:time', function(req, res) {
   }else {
     var results = new chrono.parse(req.params.time);
     var date = results[0].start.date();
-    res.send(results);
+    res.json({"unix": date.getTime() / 1000, "natural": date.toString()})
   }
   
 })
