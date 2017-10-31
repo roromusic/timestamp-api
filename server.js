@@ -42,24 +42,21 @@ app.route('/')
 app.get('/:time', function(req, res) {
   var unix, natural;
   var isNumbers = /^[0-9]+/.test(req.params.time);
-  function timeConverter(UNIX_timestamp){
+  function unixConverter(UNIX_timestamp){
     var a = new Date(UNIX_timestamp * 1000);
     var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     var year = a.getFullYear();
     var month = months[a.getMonth()];
-   var date = a.getDate();
-  var hour = a.getHours();
-  var min = a.getMinutes();
-  var sec = a.getSeconds();
-  var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
-  return time;
-}
+    var date = a.getDate();
+    var time = month + ' ' + date + ', ' + year;
+    return time;
+  }
   
   if (isNumbers) {
-    /var results = chrono.parse(req.params.time);
+    //var results = chrono.parse(req.params.time);
     //var date = results[0].start.date().toString();
-    res.send(results);
-    //res.json({"unix": req.params.time, "natural": date})
+    //res.send(results);
+    res.json({"unix": req.params.time, "natural": unixConverter(req.params.time)})
   }else {
     
   }
