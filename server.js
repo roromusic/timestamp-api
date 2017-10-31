@@ -39,7 +39,8 @@ app.route('/')
     })
 
 app.get('/:time', function(req, res) {
-  res.send(req.params.time);
+  var isNumbers = /^[0-9]+/.test(req.params.time);
+  res.send(isNumbers);
 })
 
 // Respond not found to all the wrong routes
