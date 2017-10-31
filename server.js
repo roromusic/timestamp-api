@@ -38,6 +38,9 @@ app.route('/')
 		  res.sendFile(process.cwd() + '/views/index.html');
     })
 
+app.get('/:time', function(req, res) {
+  res.send(req.params.time);
+})
 
 // Respond not found to all the wrong routes
 app.use(function(req, res, next){
