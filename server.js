@@ -8,6 +8,7 @@
 var fs = require('fs');
 var express = require('express');
 var app = express();
+var chrono = require('chrono-node');
 
 if (!process.env.DISABLE_XORIGIN) {
   app.use(function(req, res, next) {
@@ -40,7 +41,9 @@ app.route('/')
 
 app.get('/:time', function(req, res) {
   var isNumbers = /^[0-9]+/.test(req.params.time);
-  res.send(isNumbers);
+  var results = chrono.parse(req.params.time);
+  var date = results[0].start.date().toString();
+  res.send(date);
 })
 
 // Respond not found to all the wrong routes
